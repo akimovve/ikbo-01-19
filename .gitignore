@@ -1,8 +1,9 @@
+### Folders ###
 HELP.md
-.DS_Store
 target/
-!**/src/ru/**
-!.mvn/wrapper/maven-wrapper.jar
+!**/src/ru/mirea/**
+**/out/**
+.DS_Store
 
 ### IntelliJ IDEA ###
 .idea
