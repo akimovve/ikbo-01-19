@@ -8,9 +8,9 @@ public class Example4 {
         for (int i = 0; i < testArray.length; i++) {
             testArray[i] = (int) (Math.random() * 101);
         }
-        System.out.print("Test array: ");
-        Arrays.stream(testArray)
-                .forEach(el -> System.out.print(el + " "));
+        System.out.print("Test array: " + Arrays.toString(
+                Arrays.stream(testArray)
+                        .toArray()));
         System.out.println("\nSorted array: " +
                 Arrays.toString(
                         Arrays.stream(testArray)
