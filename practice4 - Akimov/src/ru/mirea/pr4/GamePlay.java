@@ -35,13 +35,12 @@ public class GamePlay extends JFrame {
             panels[i].setLayout(new GridLayout(3, 1));
             panel.add(panels[i]);
         }
+
         panels[0].add(scoreOneLabel);
         panels[0].add(setLogo(firstTeam, scoreOneLabel));
-
         panels[1].add(xLabel);
         panels[1].add(gameResultLabel);
         panels[1].add(lastGoalLabel);
-
         panels[2].add(scoreTwoLabel);
         panels[2].add(setLogo(secondTeam, scoreTwoLabel));
 
@@ -49,6 +48,9 @@ public class GamePlay extends JFrame {
         mainFrame.add(panel);
         mainFrame.getRootPane()
                 .setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 30));
+
+        mainFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        mainFrame.setMinimumSize(new Dimension(Base.WIDTH, Base.HEIGHT));
         mainFrame.setSize(Base.WIDTH, Base.HEIGHT);
         mainFrame.setVisible(true);
     }
@@ -85,44 +87,24 @@ public class GamePlay extends JFrame {
                 resetLabels();
             }
         });
-
-        JMenuItem finishItem = new JMenuItem();
-        finishItem.setText("Finish game");
-        finishItem.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                gameResultLabel.setText(settingWinner());
-                lastGoalLabel.setText(settingLastGoal());
-                firstTeam.resetGame();
-                secondTeam.resetGame();
-            }
-        });
         menu.add(resetItem);
-        menu.add(finishItem);
         menuBar.add(menu);
-
         jFrame.add(menuBar);
         jFrame.setJMenuBar(menuBar);
         return jFrame;
     }
 
     private String settingWinner() {
-        String response = "WINNER: ";
-        if (firstTeam.getGoals() > secondTeam.getGoals()) {
+        String response = "Winner: ";
+        if (firstTeam.getGoals() > secondTeam.getGoals())
             return response + firstTeam.getName();
-        }
-        if (secondTeam.getGoals() > firstTeam.getGoals()) {
+        if (secondTeam.getGoals() > firstTeam.getGoals())
             return response + secondTeam.getName();
-        }
-        return "DRAW!";
+        return response + "DRAW";
     }
 
     private String settingLastGoal() {
-        String response = "Last scorer: ";
-        if (firstTeam.getGoals() == 0 && secondTeam.getGoals() == 0) {
-            return response + "N/A";
-        }
-        return response + (firstTeam.isLastGoal()? firstTeam.getName() : secondTeam.getName());
+        return "Last scorer: " + (firstTeam.isLastGoal()? firstTeam.getName() : secondTeam.getName());
     }
 
     private void resetLabels() {
@@ -139,11 +121,10 @@ public class GamePlay extends JFrame {
             button.setIcon(new ImageIcon(logo));
             button.addMouseListener(new MouseAdapter() {
                 @Override
-                public void mousePressed(MouseEvent e) {
+                public void mouseReleased(MouseEvent e) {
                     if (team.isGameFinished()) {
                         firstTeam.setGameFinished(false);
                         secondTeam.setGameFinished(false);
-                        resetLabels();
                     }
                     team.goal();
                     label.setText(String.valueOf(team.getGoals()));
@@ -154,6 +135,8 @@ public class GamePlay extends JFrame {
                         firstTeam.setLastGoal(false);
                         secondTeam.setLastGoal(true);
                     }
+                    gameResultLabel.setText(settingWinner());
+                    lastGoalLabel.setText(settingLastGoal());
                 }
             });
         } catch (IOException e) {
