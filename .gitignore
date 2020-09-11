@@ -1,9 +1,8 @@
 ### Folders ###
 HELP.md
 target/
+out/
 !**/src/ru/mirea/**
-**/out/**
-.DS_Store
 
 ### IntelliJ IDEA ###
 .idea
@@ -21,3 +20,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Text files ###
+*.txt
+
+
+### macOS ###
+.DS_Store
