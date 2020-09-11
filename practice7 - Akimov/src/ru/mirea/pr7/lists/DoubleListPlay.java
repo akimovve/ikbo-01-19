@@ -47,6 +47,16 @@ public class DoubleListPlay extends Play<DoubleList> {
     }
 
     @Override
+    public Integer getNumOfFirstPlayerCards() {
+        return firstPlayerCards.size();
+    }
+
+    @Override
+    public Integer getNumOfSecondPlayerCards() {
+        return secondPlayerCards.size();
+    }
+
+    @Override
     public Boolean isFirstPlayerIsOutOfCards() {
         return firstPlayerCards.isEmpty();
     }

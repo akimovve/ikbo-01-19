@@ -43,6 +43,16 @@ public class QueuePlay extends Play<Queue<String>> {
     }
 
     @Override
+    public Integer getNumOfFirstPlayerCards() {
+        return firstPlayerCards.size();
+    }
+
+    @Override
+    public Integer getNumOfSecondPlayerCards() {
+        return secondPlayerCards.size();
+    }
+
+    @Override
     public Boolean isFirstPlayerIsOutOfCards() {
         return firstPlayerCards.isEmpty();
     }

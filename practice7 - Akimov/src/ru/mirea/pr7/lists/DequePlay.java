@@ -43,6 +43,16 @@ public class DequePlay extends Play<Deque<String>> {
     }
 
     @Override
+    public Integer getNumOfFirstPlayerCards() {
+        return firstPlayerCards.size();
+    }
+
+    @Override
+    public Integer getNumOfSecondPlayerCards() {
+        return secondPlayerCards.size();
+    }
+
+    @Override
     public Boolean isFirstPlayerIsOutOfCards() {
         return firstPlayerCards.isEmpty();
     }

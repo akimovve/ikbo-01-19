@@ -26,7 +26,7 @@ public abstract class Play<T> implements Playable<T> {
     }
 
     public boolean compareCards() {
-        if (isFirstPlayerIsOutOfCards() || isSecondPlayerIsOutOfCards() || counter > 50) {
+        if (isFirstPlayerIsOutOfCards() || isSecondPlayerIsOutOfCards() || counter > 106) {
             return false;
         }
         String card1 = getCardOfFirstPlayer();
@@ -47,7 +47,11 @@ public abstract class Play<T> implements Playable<T> {
             temp.add(String.valueOf(i));
         }
         Collections.shuffle(temp);
-        firstPlayerCards = createGame(temp.subList(0, temp.size() / 2 - 1));
-        secondPlayerCards = createGame(temp.subList(temp.size() / 2, temp.size() - 1));
+        firstPlayerCards = createGame(temp.subList(0, temp.size() / 2));
+        secondPlayerCards = createGame(temp.subList(temp.size() / 2, temp.size()));
+    }
+
+    public int getCounter() {
+        return counter;
     }
 }

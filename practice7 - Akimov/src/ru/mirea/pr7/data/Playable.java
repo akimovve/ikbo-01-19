@@ -9,6 +9,8 @@ public interface Playable<T> {
     void endOfTurn(T to, T from);
     String getCardOfFirstPlayer();
     String getCardOfSecondPlayer();
+    Integer getNumOfFirstPlayerCards();
+    Integer getNumOfSecondPlayerCards();
     Boolean isFirstPlayerIsOutOfCards();
     Boolean isSecondPlayerIsOutOfCards();
 }
