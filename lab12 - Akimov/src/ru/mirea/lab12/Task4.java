@@ -1,15 +1,20 @@
 package ru.mirea.lab12;
 
-import java.util.Scanner;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Task4 {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Pattern pattern = Pattern.compile("^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$");
-        Matcher matcher = pattern.matcher(scanner.nextLine());
-        System.out.println(matcher.matches());
+        Pattern pattern = Pattern.compile("^[-\\w.]+@([A-z0-9][-A-z0-9]+(\\.|))+[A-z]{2,4}$");
+        String[] tests = {
+                "user@gmail.com",
+                "root@localhost",
+                "myhost@@@com.ru",
+                "@my.ru",
+                "Julia String",
+                "student.m.a@edu.mirea.ru"
+        };
+        for (String test : tests)
+            System.out.println(pattern.matcher(test).matches() + "\t:" + test);
     }
 }
