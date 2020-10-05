@@ -1,7 +1,6 @@
 package ru.mirea.pr16.collections;
 
 import java.util.Collection;
-import java.util.NoSuchElementException;
 
 public class OwnLinkedList<T> {
     private static class Node<T> {
@@ -29,14 +28,6 @@ public class OwnLinkedList<T> {
     public boolean add(T element) {
         linkLast(element);
         return true;
-    }
-
-    public void add(int index, T element) {
-        checkIndex(index);
-        if (index == size)
-            linkLast(element);
-        else
-            linkBefore(element, node(index));
     }
 
     public boolean addAll(Collection<? extends T> collection) {
@@ -77,43 +68,6 @@ public class OwnLinkedList<T> {
         return true;
     }
 
-    public void addFirst(T element) {
-        linkFirst(element);
-    }
-
-    public void addLast(T element) {
-        linkLast(element);
-    }
-
-    public T get(int index) {
-        checkIndex(index);
-        return node(index).element;
-    }
-
-    public T getFirst() {
-        if (first == null)
-            throw new NoSuchElementException();
-        return first.element;
-    }
-
-    public T getLast() {
-        if (last == null)
-            throw new NoSuchElementException();
-        return last.element;
-    }
-
-    public T removeFirst() {
-        if (first == null)
-            throw new NoSuchElementException();
-        return unlinkFirst(first);
-    }
-
-    public T removeLast() {
-        if (last == null)
-            throw new NoSuchElementException();
-        return unlinkLast(last);
-    }
-
     public boolean remove(Object object) {
         if (object == null) {
             for (Node<T> f = first; f != null; f = f.next) {
@@ -143,8 +97,8 @@ public class OwnLinkedList<T> {
     }
 
     private void linkFirst(T element) {
-        final Node<T> first = this.first;
-        final Node<T> newNode = new Node<>(null, element, first);
+        Node<T> first = this.first;
+        Node<T> newNode = new Node<>(null, element, first);
         this.first = newNode;
         if (first == null)
             last = newNode;
@@ -154,8 +108,8 @@ public class OwnLinkedList<T> {
     }
 
     private void linkLast(T element) {
-        final Node<T> last = this.last;
-        final Node<T> newNode = new Node<>(last, element, null);
+        Node<T> last = this.last;
+        Node<T> newNode = new Node<>(last, element, null);
         this.last = newNode;
         if (last == null)
             first = newNode;
@@ -165,8 +119,8 @@ public class OwnLinkedList<T> {
     }
 
     void linkBefore(T element, Node<T> node) {
-        final Node<T> pred = node.prev;
-        final Node<T> newNode = new Node<>(pred, element, node);
+        Node<T> pred = node.prev;
+        Node<T> newNode = new Node<>(pred, element, node);
         node.prev = newNode;
         if (pred == null)
             first = newNode;
@@ -175,38 +129,9 @@ public class OwnLinkedList<T> {
         size++;
     }
 
-    private T unlinkFirst(Node<T> first) {
-        final T element = first.element;
-        final Node<T> next = first.next;
-        first.element = null;
-        first.next = null;
-        this.first = next;
-        if (next == null)
-            last = null;
-        else
-            next.prev = null;
-        size--;
-        return element;
-    }
-
-    private T unlinkLast(Node<T> last) {
-        final T element = last.element;
-        final Node<T> prev = last.prev;
-        last.element = null;
-        last.prev = null;
-        this.last = prev;
-        if (prev == null)
-            first = null;
-        else
-            prev.next = null;
-        size--;
-        return element;
-    }
-
     private void unlink(Node<T> el) {
-        final T element = el.element;
-        final Node<T> next = el.next;
-        final Node<T> prev = el.prev;
+        Node<T> next = el.next;
+        Node<T> prev = el.prev;
         if (prev == null)
             first = next;
         else {
